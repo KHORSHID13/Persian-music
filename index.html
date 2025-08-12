@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>داستان‌های صوتی سعدی</title>
+<style>
+  body {
+    font-family: "Tahoma", sans-serif;
+    background: #f0f4ff;
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  header {
+    background: #3366cc;
+    color: white;
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  main {
+    width: 100%;
+    max-width: 900px;
+  }
+  article.story {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    margin-bottom: 1.3rem;
+  }
+  article.story h2 {
+    margin-top: 0;
+    color: #224488;
+    font-size: 1.4rem;
+  }
+  article.story .book {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  article.story pre {
+    white-space: pre-wrap;
+    font-size: 1rem;
+    line-height: 1.5;
+    background: #f9faff;
+    border: 1px solid #ccc;
+    padding: 0.7rem;
+    border-radius: 6px;
+    max-height: 220px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+  .controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  button.play, button.stop {
+    flex: 1;
+    padding: 0.6rem;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  button.play {
+    background-color: #3366cc;
+  }
+  button.play:hover {
+    background-color: #254a8c;
+  }
+  button.stop {
+    background-color: #cc3333;
+  }
+  button.stop:hover {
+    background-color: #8c2525;
+  }
+  footer {
+    margin-top: auto;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>داستان‌های صوتی سعدی</header>
+
+<main id="mainStories"></main>
+
+<footer>ساخته شده توسط ChatGPT | پخش صوت با صدای ربات مرورگر (TTS)</footer>
+
+<script>
+  const stories = [
+    {
+      id: 'gul_1',
+      title: 'باب اول - پادشاه و رعیت',
+      book: 'گلستان',
+      text: `پادشاهی روزی به وزیر گفت: «عدل در کشور باید حکم‌فرما باشد.» وزیر پاسخ داد: «بی‌عدالتی، بذر نابودی است.»`
+    },
+    {
+      id: 'gul_2',
+      title: 'باب دوم - نصیحت به جوانان',
+      book: 'گلستان',
+      text: `جوانی از پیرمرد پرسید: «چگونه می‌توانم مردم را دوست داشتنی کنم؟» پیرمرد گفت: «با صداقت و وفا.»`
+    },
+    {
+      id: 'gul_3',
+      title: 'باب سوم - احترام به والدین',
+      book: 'گلستان',
+      text: `کسی که به پدر و مادر نیکی کند، خداوند بر عمرش می‌افزاید و برکت زندگی‌اش را زیاد می‌کند.`
+    },
+    {
+      id: 'gul_4',
+      title: 'باب چهارم - ثروت و تلاش',
+      book: 'گلستان',
+      text: `فقر از بی‌کفایتی است نه از سرنوشت. هر کس تلاش کند، به روزی می‌رسد.`
+    },
+    {
+      id: 'gul_5',
+      title: 'باب پنجم - صداقت',
+      book: 'گلستان',
+      text: `صداقت گنجی است که هر چه بیشتر خرج شود، افزون‌تر می‌شود و از بین نمی‌رود.`
+    },
+    {
+      id: 'bost_1',
+      title: 'فضیلت‌ها',
+      book: 'بوستان',
+      text: `خداوند آسمان و زمین را آفرید و عقل را به انسان داد تا به نیکی زندگی کند.`
+    },
+    {
+      id: 'bost_2',
+      title: 'حکمت',
+      book: 'بوستان',
+      text: `حکمت چراغی است که در تاریکی‌ها راه را نشان می‌دهد و دل‌ها را نورانی می‌کند.`
+    },
+    {
+      id: 'bost_3',
+      title: 'دوستی',
+      book: 'بوستان',
+      text: `دوستی باغی است که با محبت و وفا گل‌های زیبا در آن شکوفا می‌شوند.`
+    },
+    {
+      id: 'bost_4',
+      title: 'شکرگزاری',
+      book: 'بوستان',
+      text: `شکرگزاری کلید رحمت است و هر که نعمت‌ها را سپاس گوید، برکاتش زیاد می‌شود.`
+    },
+    {
+      id: 'bost_5',
+      title: 'گذشت',
+      book: 'بوستان',
+      text: `گذشت از خطاهای دیگران نشان بزرگی دل و آرامش درون است.`
+    }
+  ];
+
+  const mainStories = document.getElementById('mainStories');
+  let synth = window.speechSynthesis;
+  let currentUtterance = null;
+  let currentPlayingId = null;
+
+  function createStoryElement(story) {
+    const art = document.createElement('article');
+    art.classList.add('story');
+    art.id = story.id;
+
+    const h2 = document.createElement('h2');
+    h2.textContent = story.title;
+    art.appendChild(h2);
+
+    const bookDiv = document.createElement('div');
+    bookDiv.classList.add('book');
+    bookDiv.textContent = `کتاب: ${story.book}`;
+    art.appendChild(bookDiv);
+
+    const pre = document.createElement('pre');
+    pre.textContent = story.text;
+    art.appendChild(pre);
+
+    const controls = document.createElement('div');
+    controls.classList.add('controls');
+
+    const playBtn = document.createElement('button');
+    playBtn.classList.add('play');
+    playBtn.textContent = '▶️ پخش';
+    playBtn.title = 'پخش صوت داستان';
+    controls.appendChild(playBtn);
+
+    const stopBtn = document.createElement('button');
+    stopBtn.classList.add('stop');
+    stopBtn.textContent = '⏹️ توقف';
+    stopBtn.title = 'توقف پخش صوت';
+    controls.appendChild(stopBtn);
+
+    art.appendChild(controls);
+
+    // رویدادها
+    playBtn.addEventListener('click', () => {
+      if(currentPlayingId && currentPlayingId !== story.id) {
+        // اگر داستان دیگه‌ای در حال پخشه، اون رو قطع کن
+        stopSpeech();
+      }
+      if(synth.speaking) {
+        // اگر همون داستان پخشه، کاری نکن
+        if(currentPlayingId === story.id) return;
+      }
+      startSpeech(story);
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if(currentPlayingId === story.id) {
+        stopSpeech();
+      }
+    });
+
+    return art;
+  }
+
+  function startSpeech(story) {
+    if(synth.speaking) {
+      synth.cancel();
+    }
+    currentUtterance = new SpeechSynthesisUtterance(story.text);
+    currentUtterance.lang = 'fa-IR';
+    currentUtterance.rate = 0.9;
+    currentUtterance.onend = () => {
+      currentPlayingId = null;
+    };
+    synth.speak(currentUtterance);
+    currentPlayingId = story.id;
+  }
+
+  function stopSpeech() {
+    if(synth.speaking) {
+      synth.cancel();
+    }
+    currentPlayingId = null;
+  }
+
+  // بارگذاری همه داستان‌ها
+  function loadStories() {
+    mainStories.innerHTML = '';
+    stories.forEach(s => {
+      const el = createStoryElement(s);
+      mainStories.appendChild(el);
+    });
+  }
+
+  loadStories();
+
+</script>
+
+</body>
+</html>
